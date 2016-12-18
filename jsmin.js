@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /* jsmin.js para node.js
    2016-12-18
    Copyright (c) 2016 Jorge Chamorro Bieling (jorge@jorgechamorro.com)
@@ -277,10 +279,11 @@ function jsmin () {
 /* main -- Output any command line arguments as comments
         and then minify the input.
 */
+
 function main (argc, argv) {
     var i;
-    for (i = 1; i < argc; i += 1) {
-        process.stdout.write("// " + argv[i] + "\n");
+    for (i = 2; i < argc; i += 1) {
+        puts("stdout", "// " + argv[i] + "\n");
     }
     stdin= {
         nextc:  0,
@@ -290,10 +293,10 @@ function main (argc, argv) {
         stdin.buffer = Buffer.concat([stdin.buffer, data]);
     });
     process.stdin.on("end", function () {
-        stdin.buffer = stdin.buffer.toString();
+        stdin.buffer = stdin.buffer.toString("utf8");
         jsmin();
     });
 }
 
 
-main(process.argc, process.argv);
+main(process.argv.length, process.argv);
