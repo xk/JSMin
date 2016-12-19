@@ -53,7 +53,7 @@ function puts (stream, str) {
 function isAlphanum (c) {
     return ((c >= "a" && c <= "z") || (c >= "0" && c <= "9") ||
         (c >= "A" && c <= "Z") || c === "_" || c === "$" || c === "\\" ||
-        c > "\x7e");
+         c > "\x7e");
 }
 
 
@@ -111,7 +111,7 @@ function next () {
     if  (c === "/") {
         switch (peek()) {
         case "/":
-            for (;;) {
+            while (1) {
                 c = get();
                 if (c <= "\n") {
                     return c;
@@ -119,7 +119,7 @@ function next () {
             }
         case "*":
             get();
-            for (;;) {
+            while (1) {
                 switch (get()) {
                 case "*":
                     if (peek() === "/") {
@@ -155,7 +155,7 @@ function action (d) {
     case 2:
         theA = theB;
         if (theA === "'" || theA === "\"") {
-            for (;;) {
+            while (1) {
                 puts("stdout", theA);
                 theA = get();
                 if (theA === theB) {
@@ -180,7 +180,7 @@ function action (d) {
                              theA === "\n")) {
             puts("stdout", theA);
             puts("stdout", theB);
-            for (;;) {
+            while (1) {
                 theA = get();
                 if (theA === "/") {
                     break;
